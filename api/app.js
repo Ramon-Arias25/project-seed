@@ -4,7 +4,7 @@ var bodyParse = require('body-parser');
 var app = express();
 
 //routes
-
+var user_routes = require('./routes/users');
 //middlewares
 app.use(bodyParse.urlencoded({extended:false}));
 app.use(bodyParse.json());
@@ -12,11 +12,7 @@ app.use(bodyParse.json());
 //cros
 
 //rutas
-app.get('/', (req, res) => {
-    res.status(200).send({
-        message: 'Hola Mundo desde Proyecto seed'
-    });
-});
+app.use('/api', user_routes);
 
 //export
 module.exports = app;
