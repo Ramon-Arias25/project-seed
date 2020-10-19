@@ -10,9 +10,9 @@ app.use(bodyParse.json());
 //cros
 
 //routes
-app.use('/api', require('./routes/test'));
 app.use('/api', require('./routes/users'));
 app.use('/api', require('./routes/follow'));
+app.use('/api', require('./routes/publication'));
 
 //export
 module.exports = app;

@@ -1,20 +1,20 @@
 var Follow = require('../models/follow');
-exports.getFollowIds = async function (user_id){
+exports.getFollowIds = async function (userId){
     
-    var following = await Follow.find({'user': user_id}).select({'_id':0, '__v':0, 'user':0}).exec().then((follows)=>{  
-        var follows_clean = [];
+    var following = await Follow.find({'user': userId}).select({'_id':0, '__v':0, 'user':0}).exec().then((follows)=>{  
+        var followsClean = [];
         for (let i in follows) {
-            follows_clean.push(follows[i].followed._id); 
+            followsClean.push(follows[i].followed._id); 
         } 
-        return follows_clean;
+        return followsClean;
     });
     
-    var followers = await Follow.find({'followed': user_id}).select({'_id':0, '__v':0, 'followed':0}).exec().then((follows)=>{  
-        var follows_clean = [];
+    var followers = await Follow.find({'followed': userId}).select({'_id':0, '__v':0, 'followed':0}).exec().then((follows)=>{  
+        var followsClean = [];
         for (let i in follows) {
-            follows_clean.push(follows[i].user._id); 
+            followsClean.push(follows[i].user._id); 
         } 
-        return follows_clean;
+        return followsClean;
     });
     return {
         following: following,
