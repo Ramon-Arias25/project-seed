@@ -2,6 +2,7 @@ var bcrypt = require('bcrypt-nodejs');
 var mongoosePaginate = require('../services/pagination');
 var User = require('../models/user');
 var jwt = require('../services/jwt');
+var {getFollowIds} = require('../services/getFollowIds');
 var fs = require('fs');
 var path = require('path');
 
@@ -64,19 +65,27 @@ function loginUser(req, res) {
     });
 }
 
-function getUser(req, res) {
+async function getUser(req, res) {
     User.findById(req.params.id, (err, user) => {
         if (err) return res.status(500).send({ message: ' Error en la peticion' });
 
         if (!user) return res.status(404).send({ message: 'El usuario no existe' });
         
-        user.password = undefined;
-        return res.status(200).send({user});
+
+        getFollowIds(req.params.id)
+        .then((value) => {
+            user.password = undefined;
+            return res.status(200).send({
+                user,
+                following: value.following,
+                followers: value.followers
+            });
+        });
     });
 }
 
 function getUsers(req, res) {
-    var identifyUserId = req.user.sub;
+    
     var page = 1;
     if (req.params.page) {
         page = req.params.page;
@@ -182,5 +191,5 @@ module.exports = {
     getUsers,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
 }

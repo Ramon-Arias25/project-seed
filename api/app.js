@@ -3,16 +3,16 @@ var bodyParse = require('body-parser');
 
 var app = express();
 
-//routes
-var user_routes = require('./routes/users');
 //middlewares
 app.use(bodyParse.urlencoded({extended:false}));
 app.use(bodyParse.json());
 
 //cros
 
-//rutas
-app.use('/api', user_routes);
+//routes
+app.use('/api', require('./routes/test'));
+app.use('/api', require('./routes/users'));
+app.use('/api', require('./routes/follow'));
 
 //export
 module.exports = app;
