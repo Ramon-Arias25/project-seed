@@ -1,10 +1,10 @@
-var bcrypt = require('bcrypt-nodejs');
-var mongoosePaginate = require('../services/pagination');
 var User = require('../models/user');
+var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
-var {getFollowIds} = require('../services/getFollowIds');
+var getFollowIds = require('../services/getFollowIds');
 var fs = require('fs');
 var path = require('path');
+var Paginate = require('../services/pagination');
 
 function saveUser(req, res) {
     if (req.body.name && req.body.surname && req.body.nick && req.body.email && req.body.password) {

@@ -6,6 +6,7 @@ function saveFollows (req,res) {
     var follow = new Follow();
     follow.user = req.user.sub;
     follow.followed = req.params.follow;
+    follow.createdAt = moment().unix();
     
     follow.save((err, followStored) => {
         if (err) return res.status(500).send({message: 'Error al guardar el seguimiento'});

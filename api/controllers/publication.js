@@ -1,10 +1,10 @@
+var Follow = require('../models/follow');
+var Publication = require('../models/publication');
 var path = require('path');
 var fs = require('fs');
 var moment = require('moment');
-var mongoosePaginate = require('mongoose-pagination');
-var Publication = require('../models/publication');
-var User = require('../models/user');
-var Follow = require('../models/follow');
+var Paginate = require('../services/pagination');
+
 
 
 function savePublications(req, res) {
@@ -16,7 +16,7 @@ function savePublications(req, res) {
     publication.text = req.body.text;
     publication.file = null;
     publication.user = req.user.sub;
-    publication.create_at = moment().unix();
+    publication.createAt = moment().unix();
     publication.save((err, publicationStored) => {
         if (err) return res.status(500).send({ message: 'Error al guardar la publicacion' });
 
@@ -40,7 +40,7 @@ function getPublications(req, res) {
             followsClean.push(follows[i].followed._id);
         }
         followsClean.push(req.user.sub);
-        Publication.find({ user: { $in: followsClean } }).sort({ create_at: -1 }).populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+        Publication.find({ user: { $in: followsClean } }).sort({ createAt: -1 }).populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
             if (err) return res.status(500).send({ message: 'Error devolver publicaciones' });
             if (!publications) return res.status(404).send({ message: 'No existen publicaciones' });
             return res.status(200).send({
@@ -68,7 +68,7 @@ function getPublicationsByUser(req, res) {
     }
 
     var itemsPerPage = 4;
-    Publication.find({ user: userId }).sort({ create_at: -1 }).populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+    Publication.find({ user: userId }).sort({ createAt: -1 }).populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
 
         if (err) return res.status(500).send({ message: 'Error devolver publicaciones' });
 

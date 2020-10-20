@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var PublicationSchema = Schema ({
     text: String,
     file: String,
-    create_at: String,
+    createAt: String,
     user : { type: Schema.ObjectId, ref: 'User' }
 });
 
