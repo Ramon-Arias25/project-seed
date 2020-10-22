@@ -1,16 +1,16 @@
 var mongoose = require('mongoose');
 var app = require('./app');
-var port = 3800;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/DevSeed' , { 
-                                                        useNewUrlParser: true, 
-                                                        useUnifiedTopology: true,
-                                                        useFindAndModify: false })
+mongoose.connect(app.get('uri') , { 
+                                    useNewUrlParser: true, 
+                                    useUnifiedTopology: true,
+                                    useFindAndModify: false })
         .then(()=> {
-            console.log('DB is connected');
-            app.listen(port,() => {
-                console.log("Server is on http://localhost:" + port);
+            console.log('DB is connected!!');
+            console.log(`CLUSTER: ${app.get('cluster')}`);
+            app.listen(app.get('port'),() => {
+                console.log(`PORT: ${app.get('port')}`);
             })
         })
         .catch(error => console.log(error));
