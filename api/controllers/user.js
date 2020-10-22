@@ -1,10 +1,11 @@
 var User = require('../models/user');
-var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
 var getFollowIds = require('../services/getFollowIds');
 var fs = require('fs');
 var path = require('path');
 var Paginate = require('../services/pagination');
+var bcrypt = require('bcrypt');
+var saltRounds = 10;
 
 function saveUser(req, res) {
     if (req.body.name && req.body.surname && req.body.nick && req.body.email && req.body.password) {
@@ -15,18 +16,19 @@ function saveUser(req, res) {
         user.email = req.body.email;
         user.role = 'ROLE_USER';
         user.image = null;
-        User.find({ 
-            $or: [{ email: user.email.toLowerCase() }, { nick: user.nick.toLowerCase() } ]
+        User.find({
+            $or: [{ email: user.email.toLowerCase() }, { nick: user.nick.toLowerCase() }]
         }).exec((err, users) => {
             if (err) return res.status(500).send({ message: "error en la peticion de usuarios" });
 
             if (users && users.length >= 1) {
                 return res.status(200).send({ message: "el email/nick existe" })
             } else {
-                bcrypt.hash(req.body.password, null, null, (err, hash) => {
+                bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
                     user.password = hash;
                     user.save((err, userStored) => {
-                        if (err) return res.status(500).send({ message: 'error al guardar usuario' });
+                        if (err)
+                            return res.status(500).send({ message: 'error al guardar usuario' });
 
                         if (userStored) {
                             return res.status(200).send({ user: userStored });
@@ -38,7 +40,7 @@ function saveUser(req, res) {
             }
         });
     } else {
-        return res.status(200).send({message: "faltan datos"});
+        return res.status(200).send({ message: "faltan datos" });
     }
 }
 
@@ -50,7 +52,7 @@ function loginUser(req, res) {
             bcrypt.compare(req.body.password, user.password, (err, check) => {
                 if (check) {
                     if (req.body.gettoken) {
-                        return res.status(200).send({token: jwt.createtoken(user)});
+                        return res.status(200).send({ token: jwt.createtoken(user) });
                     } else {
                         user.password = undefined;
                         return res.status(200).send({ user });
@@ -70,22 +72,21 @@ async function getUser(req, res) {
         if (err) return res.status(500).send({ message: ' Error en la peticion' });
 
         if (!user) return res.status(404).send({ message: 'El usuario no existe' });
-        
 
         getFollowIds(req.params.id)
-        .then((value) => {
-            user.password = undefined;
-            return res.status(200).send({
-                user,
-                following: value.following,
-                followers: value.followers
+            .then((value) => {
+                user.password = undefined;
+                return res.status(200).send({
+                    user,
+                    following: value.following,
+                    followers: value.followers
+                });
             });
-        });
     });
 }
 
 function getUsers(req, res) {
-    
+
     var page = 1;
     if (req.params.page) {
         page = req.params.page;
@@ -93,9 +94,9 @@ function getUsers(req, res) {
     var itemsPerPage = 5;
     User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
         if (err) return res.status(500).send({ message: ' Error en la peticion' });
-        
+
         if (!users) return res.status(404).send({ message: 'No hay usuarios disponibles' });
-        
+
         return res.status(200).send({
             users,
             total,
@@ -114,9 +115,9 @@ function updateUser(req, res) {
     }
 
     User.find({
-        $or: [{ email: update.email },{ nick: update.nick }]
+        $or: [{ email: update.email }, { nick: update.nick }]
     }).exec((err, users) => {
-        
+
         users.forEach((user) => {
             if (user && user._id != userId) return res.status(200).send({ message: 'los datos ya estan en uso' });
         });
@@ -137,27 +138,29 @@ function updateUser(req, res) {
 
 function uploadImage(req, res) {
     if (req.params.id = req.user.sub) {
-        if (req.files.image) { 
-            if (((req.files.image.path.split('/')[2]).split('\.')[1]) == 'png' 
-             || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpg' 
-             || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpeg' 
-             || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'gif') {
-                
+        if (req.files.image) {
+            if (((req.files.image.path.split('/')[2]).split('\.')[1]) == 'png'
+                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpg'
+                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpeg'
+                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'gif') {
+
                 User.findByIdAndUpdate(req.params.id, { image: (req.files.image.path.split('/')[2]) }, { new: true }, (err, userUpdated) => {
-                
-                    if (err) {fs.unlink(req.files.image.path, (err) => {
-                        return res.status(500).send({ message: 'Error al actualizar el usuario' });
-                    });}
-                    
+
+                    if (err) {
+                        fs.unlink(req.files.image.path, (err) => {
+                            return res.status(500).send({ message: 'Error al actualizar el usuario' });
+                        });
+                    }
+
 
                     if (!userUpdated) {
                         fs.unlink(req.files.image.path, (err) => {
                             return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
-                        });                        
+                        });
                     }
-                    
+
                     return res.status(200).send({ user: userUpdated });
-                
+
                 });
             } else {
                 fs.unlink(req.files.image.path, (err) => {
@@ -176,12 +179,12 @@ function uploadImage(req, res) {
 }
 
 function getImageFile(req, res) {
-    
-        if (fs.existsSync('./uploads/users/' + req.params.imageFile)) {
-            res.sendFile(path.resolve('./uploads/users/' + req.params.imageFile));
-        } else {
-            res.status(200).send({ message: 'No existe la imagen' });
-        }
+
+    if (fs.existsSync('./uploads/users/' + req.params.imageFile)) {
+        res.sendFile(path.resolve('./uploads/users/' + req.params.imageFile));
+    } else {
+        res.status(200).send({ message: 'No existe la imagen' });
+    }
 }
 
 module.exports = {
