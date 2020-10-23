@@ -1,3 +1,5 @@
 api/node_modules/*
+front/node_modules/*
+front/.pnp
 docs/*
 api/*.env

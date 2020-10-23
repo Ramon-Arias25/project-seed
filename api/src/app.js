@@ -14,7 +14,7 @@ app.use(cors());
 
 //settings
 app.set('port', process.env.PORT || 3800);
-app.set('uri', process.env.URI || 'mongodb://localhost:27017/test');
+app.set('uri', process.env.URI || 'mongodb://localhost:27017/DevSeed');
 app.set('cluster', process.env.CLUSTER || 'CLUSTER');
 
 //routes
