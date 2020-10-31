@@ -1,12 +1,12 @@
 import React from 'react';
-import Interior from './views/Interior';
+import DefaultLayout from './layout/DefaultLayout';
 import { BrowserRouter, Switch, Route  } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter basename={'/'}>
       <Switch>
-        <Route exact path={`${process.env.PUBLIC_URL}/`} component={Interior}/>
+        <Route exact path={`${process.env.PUBLIC_URL}/`} component={DefaultLayout}/>
       </Switch>
     </BrowserRouter>
 

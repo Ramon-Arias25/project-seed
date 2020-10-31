@@ -2,57 +2,21 @@ import React, { Component , Fragment } from "react";
 import Scrollspy from 'react-scrollspy';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp , FiX , FiMenu } from "react-icons/fi";
-import Testimonial from "../elements/Testimonial";
 import FooterTwo from "../component/FooterTwo";
 import Helmet from "../component/Helmet";
 import TeamOne from "../blocks/TeamOne";
-import Slider from "react-slick";
-import { portfolioSlick2 } from "../scripts/script";
-
 
 const SlideList = [
     {
         textPosition: 'text-center',
         category: '',
-        title: 'INTERIOR HOUSE',
-        description: 'There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration.',
-        buttonText: 'Contact Us',
-        buttonLink: '/contact'
+        title: 'NOMBRE',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quam animi modi quis deleniti corporis hic voluptatem accusamus!',
+        buttonText: 'Sign Up',
+        buttonLink: ''
     }
 ]
 
-const PortfolioList2 = [
-    {
-        image: 'image-1',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    },
-    {
-        image: 'image-2',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    },
-    {
-        image: 'image-3',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    },
-    {
-        image: 'image-4',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    },
-    {
-        image: 'image-3',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    },
-    {
-        image: 'image-4',
-        category: 'Development',
-        title: ' Getting tickets to the big show'
-    }
-]
 
 
 const ServiceListOne = [
@@ -129,19 +93,16 @@ class InteriorLanding extends Component{
                         </div>
                         <div className="header-right">
                             <nav className="mainmenunav d-lg-block">
-                                <Scrollspy className="mainmenu" items={['home','service','getstart','about','team','testimonial','portfolio']} currentClassName="is-current" offset={-200}>
+                                <Scrollspy className="mainmenu" items={['home','service','about','team']} currentClassName="is-current" offset={-200}>
                                     <li><a href="#home">Home</a></li>
                                     <li><a href="#service">Service</a></li>
-                                    <li><a href="#getstart">Get Start</a></li>
                                     <li><a href="#about">About</a></li>
                                     <li><a href="#team">Team</a></li>
-                                    <li><a href="#testimonial">Testimonial</a></li>
-                                    <li><a href="#portfolio">Portfolio</a></li>
                                 </Scrollspy>
                             </nav>
                             <div className="header-btn">
-                                <a className="rn-btn" href="https://themeforest.net/checkout/from_item/25457315?license=regular">
-                                    <span>buy now</span>
+                                <a className="rn-btn" href="/">
+                                    <span>Sign In</span>
                                 </a>
                             </div>
                             {/* Start Humberger Menu  */}
@@ -212,22 +173,6 @@ class InteriorLanding extends Component{
                 </div>  
                 {/* End Service Area  */} 
 
-                {/* Start Call To Action Area  */}
-                <div className="call-to-action-wrapper call-to-action bg_image bg_image--30 text-white-wrapper ptb--180 ptb_lg--80 ptb_md--80 ptb_sm--80" id="getstart">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-8">
-                                <div className="inner text-left">
-                                    <span>READY TO DO THIS</span>
-                                    <h2>Let's get to work</h2>
-                                    <a className="rn-button-style--2 mt--70 mt_sm--30 mt_md--30" href="/contact"><span>Contact Us</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* End Call To Action Area  */}
-
                 {/* Start Content Box  */}
                 <div className="rn-content-box-area rn-content-box-style--1 pb--120 bg_color--1" id="about">
                     <div className="row row--0 align-items-center">
@@ -271,52 +216,6 @@ class InteriorLanding extends Component{
                     </div>
                 </div>
                 {/* End Team Area  */}
-
-                {/* Start Testimonial Area */}
-                <div className="rn-testimonial-area bg_color--5 ptb--120" id="testimonial">
-                    <div className="container">
-                        <Testimonial />
-                    </div>
-                </div>
-                {/* End Testimonial Area */}
-                
-                {/* Start Portfolio Area */}
-                <div className="portfolio-area ptb--120 bg_color--1" id="portfolio">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-6">
-                                <div className="section-title text-left service-style--3 mb--30">
-                                    <h2 className="title">All Works</h2>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="wrapper portfolio-sacousel-inner mb--55">
-                        <div className="portfolio-slick-activation mt--30 mt_sm--30">
-                            <Slider {...portfolioSlick2}>
-                                {PortfolioList2.map((value , index) => (
-                                    <div className="portfolio portfolio-interior-design" key={index}>
-                                        <div className="thumbnail-inner">
-                                            <div className={`thumbnail ${value.image}`}></div>
-                                            <div className={`bg-blr-image ${value.image}`}></div>
-                                        </div>
-                                        <div className="content">
-                                            <div className="inner">
-                                                <p>{value.category}</p>
-                                                <h4><a href="/portfolio-details">{value.title}</a></h4>
-                                                <div className="portfolio-button">
-                                                    <a className="rn-btn" href="/portfolio-details">Case Study</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </Slider>
-                        </div>
-                    </div>
-                </div>
-                {/* End Portfolio Area */}
 
                  {/* Start Footer Style  */}
                  <FooterTwo />
