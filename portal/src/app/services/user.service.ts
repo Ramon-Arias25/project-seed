@@ -69,9 +69,9 @@ export class UserService{
         let headers = new HttpHeaders().set('Content-Type','application/hson')
                                         .set('Authorization',this.getToken());
         if(userId != null){
-            return this._http.get(this.url+'counters/'+userId,{headers:headers});
+            return this._http.get(this.url+'user/get-counters/'+userId,{headers:headers});
         }else{
-            return this._http.get(this.url+'counters',{headers: headers});
+            return this._http.get(this.url+'user/get-counters',{headers: headers});
         }
     }
 

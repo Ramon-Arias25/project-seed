@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var Follow = require('../models/follow');
+var Publication = require ('../models/publication');
 var jwt = require('../services/jwt');
 var getFollowIds = require('../services/getFollowIds');
 var fs = require('fs');
@@ -86,7 +88,6 @@ async function getUser(req, res) {
 }
 
 function getUsers(req, res) {
-
     var page = 1;
     if (req.params.page) {
         page = req.params.page;
@@ -187,6 +188,44 @@ function getImageFile(req, res) {
     }
 }
 
+function getCounters(req,res){
+    var userId = req.user.sub;
+    if(req.params.id){
+        userId = req.params.id;
+    }
+    getCountAll(userId)
+        .then((value)=>{   
+            return res.status(200).send(value);
+        });
+}
+
+async function getCountAll(user_id) {
+    var following = await Follow.countDocuments({ user: user_id })
+        .exec()
+        .then((count) => {
+            return count;
+        })
+        .catch((err) => { return handleError(err); });
+ 
+    var followed = await Follow.countDocuments({ followed: user_id })
+        .exec()
+        .then((count) => {
+            return count;
+        })
+        .catch((err) => { return handleError(err); });
+ 
+    var publication = await Publication.countDocuments({ user: user_id })
+        .exec()
+        .then((count) => {
+            return count;
+        })
+        .catch((err) => { return handleError(err); });
+        
+    return { following: following, 
+        followed: followed, 
+        publication: publication }
+}
+
 module.exports = {
     saveUser,
     loginUser,
@@ -195,4 +234,5 @@ module.exports = {
     updateUser,
     uploadImage,
     getImageFile,
+    getCounters
 }

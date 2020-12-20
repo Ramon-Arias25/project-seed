@@ -4,8 +4,7 @@ import { UserService } from './services/user.service';
 import { GLOBAL } from './services/global'; 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, DoCheck{
   public title: string;

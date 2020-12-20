@@ -7,21 +7,21 @@
 						<div class="col-lg-6">
 							<div class="cmp-info">
 								<div class="cm-logo">
-									<!-- <img src="assets/imagescm-logo.png" alt=""> -->
 									<p>Where animals lovers and rescuers pet come together to give them a new home for little friends</p>
 								</div>
-								<!-- <img src="assets/imagescm-main-img.png" alt="">			 -->
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="login-sec">
-								<ul class="sign-control">
-									<li data-tab="tab-1"> <a href="#" title="">Sign in</a></li>
-									<li data-tab="tab-2" class="current"><a href="#" title="">Sign up</a></li>
-								</ul>
 								<div class="sign_in_sec current" id="tab-2">
 									<div class="dff-tab current" id="tab-3">
 										<h3>Sign up</h3>
+										<div class="alert alert-sucess" *ngIf="registerStatus == 'success'">
+											Register is complete, <a [routerLink]="['/login']">Login</a>
+										</div>
+										<div class="alert alert-danger" *ngIf="registerStatus == 'error'">
+											Register is not complete, maybe the email or nickaname already exist
+										</div>
 										<form #registerForm="ngForm" (ngSubmit)="registerSubmit(registerForm)">
 											<div class="row">
 												<div class="col-lg-12 no-pdd">
@@ -68,16 +68,9 @@
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<button type="submit" value="submit">Get Started</button>
-													<!-- <input type="submit" value="Get Started" class="submit-button" /> -->
 												</div>
 											</div>
 										</form>
-										<div class="alert alert-sucess" *ngIf="registerStatus == 'success'">
-											Register is complete, <a [routerLink]="['/login']">Login</a>
-										</div>
-										<div class="alert alert-danger" *ngIf="registerStatus == 'error'">
-											Register is not complete, maybe the email or nickaname already exist
-										</div>
 									</div>
 								</div>
 							</div>
@@ -98,7 +91,6 @@
 						<li><a href="#" title="">Copyright Policy</a></li>
 					</ul>
 					<p>
-						<!-- <img src="assets/imagescopy-icon.png" alt=""> -->
 						Copyright 2018
 					</p>
 				</div>
