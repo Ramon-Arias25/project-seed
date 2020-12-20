@@ -19,11 +19,10 @@ export class UserService{
     register(user: User): Observable<any>{
         let params = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type' , 'application/json');
-        console.log(this.url+'register', params, {headers:headers});
         return this._http.post(this.url+'register', params, {headers:headers});
     }
 
-    signup(user, gettoken = null): Observable<any>{
+    login(user, gettoken = null): Observable<any>{
         if(gettoken != null){
             user.gettoken = gettoken;
         }

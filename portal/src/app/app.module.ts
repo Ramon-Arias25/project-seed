@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 //Components
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent} from './components/register/register.component';
+import { HomeComponent} from './components/home/home.component';
 //services
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
@@ -14,7 +15,8 @@ import { UserGuard } from './services/user.guard';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

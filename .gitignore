@@ -4,3 +4,25 @@ front/node_modules/*
 front/.pnp
 docs/*
 bk.front/*
+
+# compiled output
+portal/dist
+portal/tmp
+portal/out-tsc
+# Only exists if Bazel was run
+portal/bazel-out
+
+# dependencies
+portal/node_modules
+
+# profiling files
+portal/chrome-profiler-events*.json
+portal/speed-measure-plugin*.json
+
+# IDE - VSCode
+portal/.vscode/*
+portal/!.vscode/settings.json
+portal/!.vscode/tasks.json
+portal/!.vscode/launch.json
+portal/!.vscode/extensions.json
+portal/.history/*

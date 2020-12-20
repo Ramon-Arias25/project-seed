@@ -10,8 +10,12 @@ import { UserService } from '../../services/user.service';
 })
 export class RegisterComponent implements OnInit{
     public title:string;
-    public user: User;
-    public status: string;
+    public registerUser: User;
+
+    public registerStatus: string;
+    public identity;
+    public token;
+
 
     constructor(
         private myRoute: ActivatedRoute,
@@ -19,29 +23,23 @@ export class RegisterComponent implements OnInit{
         private myUserServices: UserService
     ){
         this.title = 'Registrate';
-        this.user = new User('',
-        '',
-        '',
-        '',
-        '',
-        '',
-        'ROLE_USER',
-        '');
+        this.registerStatus = 'none';
+        this.registerUser = new User('','','','','','','ROLE_USER','');
+        
     }
 
     ngOnInit(){
         console.log('Register component is load...');
     }
 
-    onSubmit(form){
-         this.myUserServices.register(this.user).subscribe(
+    registerSubmit(registerForm){
+         this.myUserServices.register(this.registerUser).subscribe(
              response => {
                  if(response.user && response.user._id){
-                     //console.log(response.user);
-                     this.status = 'success';
-                     form.reset();
+                     this.registerStatus = 'success';
+                     registerForm.reset();
                  }else{
-                     this.status = 'error';
+                     this.registerStatus = 'error';
                  }
              },
              error => {

@@ -1111,13 +1111,14 @@ main {
 	margin-top: 2px;
 	margin-right: 6px;
 }
-.post_topbar i {
+/*.post_topbar i {
 /*	position: absolute;
 	top: 20px;
 	right: 5px;
 	color: #b2b2b2;
 	font-size: 30px;
-*/}
+}
+*/
 .epi-sec {
 	float: left;
 	width: 100%;
@@ -1807,7 +1808,7 @@ main {
 	opacity: 1;
 	visibility: visible;
 	z-index: 999;
-	-webkit-transform: scale(1) translateX(-50%) translateY(-50%);
+	/* -webkit-transform: scale(1) translateX(-50%) translateY(-50%); */
 }
 .post-project > a {
 	position: absolute;
@@ -4207,8 +4208,8 @@ a:hover {
 
 /* ============= account-tabs-setting ============ */
 
-.profile-account-setting {
-}
+/* .profile-account-setting {
+} */
 .account-tabs-setting {
 	float: left;
 	width: 100%;

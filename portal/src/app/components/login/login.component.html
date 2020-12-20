@@ -15,53 +15,62 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="login-sec">
-								<ul class="sign-control">
+								<!-- <ul class="sign-control">
 									<li data-tab="tab-1"><a href="#" title="">Sign in</a></li>				
 									<li data-tab="tab-2"class="current"><a href="#" title="">Sign up</a></li>				
-								</ul>			
+								</ul>			 -->
 								<div class="sign_in_sec current" id="tab-1">
-									
-									<h3>Sign in</h3>
-									<form>
-										<div class="row">
-											<div class="col-lg-12 no-pdd">
-												<div class="sn-field">
-													<input type="text" name="email" placeholder="email">
-													<i class="la la-globe"></i>
+									<!-- <div class="sign_in_sec current" id="tab-1"> -->
+										<h3>Sign in</h3>
+										<form #loginForm="ngForm" (ngSubmit)="loginSubmit()">
+											<div class="row">
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" name="loginEmail" placeholder="email" #loginEmail="ngModel" [(ngModel)]="loginUser.email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" require />
+														<i class="la la-globe"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="password" name="loginPassword" placeholder="Password"  #loginPassword="ngModel" [(ngModel)]="loginUser.password" class="form-control" require />
+														<i class="la la-lock"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="checky-sec">
+														<div class="fgt-sec">
+															<input type="checkbox" name="cc" id="c1">
+															<label for="c1">
+																<span></span>
+															</label>
+															<small>Remember me</small>
+														</div>
+														<a href="#" title="">Forgot Password?</a>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<button type="submit" value="submit">Sign in</button>
 												</div>
 											</div>
-											<div class="col-lg-12 no-pdd">
-												<div class="sn-field">
-													<input type="password" name="password" placeholder="Password">
-													<i class="la la-lock"></i>
-												</div>
-											</div>
-											<div class="col-lg-12 no-pdd">
-												<div class="checky-sec">
-													<div class="fgt-sec">
-														<input type="checkbox" name="cc" id="c1">
-														<label for="c1">
-															<span></span>
-														</label>
-														<small>Remember me</small>
-													</div><!--fgt-sec end-->
-													<a href="#" title="">Forgot Password?</a>
-												</div>
-											</div>
-											<div class="col-lg-12 no-pdd">
-												<button type="submit" value="submit">Sign in</button>
-											</div>
+										</form>
+										<div class="login-resources">
+											<h4>Login Via Social Account</h4>
+											<ul>
+												<li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Login Via
+														Facebook</a></li>
+												<li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Login Via
+														Twitter</a></li>
+											</ul>
 										</div>
-									</form>
-									<div class="login-resources">
-										<h4>Login Via Social Account</h4>
-										<ul>
-											<li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Login Via Facebook</a></li>
-											<li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Login Via Twitter</a></li>
-										</ul>
-									</div><!--login-resources end-->
-								</div><!--sign_in_sec end-->
-								<div class="sign_in_sec" id="tab-2">
+										<div class="alert alert-sucess" *ngIf="loginStatus == 'success'">
+											Welcome
+										</div>
+										<div class="alert alert-danger" *ngIf="loginStatus == 'error'">
+											Email or Password invald, please type correct Account or <a [routerLink]="['/register']">register</a>
+										</div>
+									<!-- </div> -->
+									<!--sign_in_sec end-->
+									<div class="sign_in_sec" id="tab-2">
 									<!-- <div class="signup-tab">
 										<i class="fa fa-long-arrow-left"></i>
 										<h2>johndoe@example.com</h2>
