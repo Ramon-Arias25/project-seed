@@ -167,15 +167,15 @@
       </div>
       <div class="user-account" *ngIf="identity">
         <div class="user-info">
-          <img src="http://via.placeholder.com/30x30" alt="profileImage">
-          <a >Name</a>
+          <img src="{{url + '/user/get-image/' + identity.image }}" class="img-avatar" alt={{identity.name}} *ngIf="identity && identity.image" />
+          <a>{{identity.name}} </a>
           <i class="la la-sort-down"></i>
         </div>
         <div class="user-account-settingss">
           <ul class="us-links">
             <li><a [routerLink]="['/']" title="">Account Setting</a></li>
             <li><a [routerLink]="['/']" title="">My Profile</a></li>
-            <li><a [routerLink]="['/']" title="">Edit My Profile</a></li>
+            <li><a [routerLink]="['/edit-profile']" title="">Edit My Profile</a></li>
           </ul>
           <h3 class="tc" (click)="logout()"><a>Logout</a></h3>
         </div>

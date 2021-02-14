@@ -66,7 +66,7 @@ export class UserService{
     }
     
     getCounters(userId): Observable<any>{
-        let headers = new HttpHeaders().set('Content-Type','application/hson')
+        let headers = new HttpHeaders().set('Content-Type','application/json')
                                         .set('Authorization',this.getToken());
         if(userId != null){
             return this._http.get(this.url+'user/get-counters/'+userId,{headers:headers});
@@ -79,7 +79,7 @@ export class UserService{
         let params = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
                                         .set('Authorization',this.getToken());
-        return this._http.put(this.url+'update/user/'+user._id,params,{headers:headers});
+        return this._http.put(this.url+'user/update/'+user._id,params,{headers:headers});
     }
 
     getUsers(page = null ): Observable<any>{

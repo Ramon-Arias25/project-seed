@@ -1,6 +1,6 @@
 var Follow = require('../models/follow');
 exports.getFollowIds = async function (userId){
-    
+    console.log('llego a get follows');
     var following = await Follow.find({'user': userId}).select({'_id':0, '__v':0, 'user':0}).exec().then((follows)=>{  
         var followsClean = [];
         for (let i in follows) {

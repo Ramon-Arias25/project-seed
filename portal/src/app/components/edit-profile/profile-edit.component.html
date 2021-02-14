@@ -1,0 +1,94 @@
+<div class="wrapper">
+    <section class="cover-sec">
+        <!-- <img src="http://via.placeholder.com/1600x400" alt=""> -->
+        <!-- <a href="#" title=""><i class="fa fa-camera"></i> Change Image</a> -->
+    </section>
+    <main>
+        <div class="main-section">
+            <div class="container">
+                <div class="main-section-data">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="main-left-sidebar">
+                                <div class="user_profile">
+                                    <div class="user-tab-sec">
+                                        <div class="star-descp">
+                                            <form #editProfileForm="ngForm" (ngSubmit)="onSubmit()" class="row col-lg-8 auto-mrgn">
+                                                <div class="user-pro-img">
+                                                    <img src="http://via.placeholder.com/170x170" alt="" *ngIf=(!identity.image)>
+                                                    <img src="{{url + 'user/get-image/' + identity.image }}" alt="profile-picture"*ngIf=(identity.image)>
+                                                    <a href="#" title=""><i class="fa fa-camera"></i></a>
+                                                </div>
+                                                <h3 class="auto-mrgn" >{{identity.nick}}</h3>
+
+                                                <div class = "alert alert-success" *ngIf="status == 'success'">
+                                                    Great! the data was updated successfully
+                                                </div>
+                                                <div class = "alert alert-danger" *ngIf="status == 'error'">
+                                                    Oops! an error has occurred please try again
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <p>Name</p>
+                                                            <input type="text" name="name" placeholder="    {{editUser.name}}" #name="ngModel" [(ngModel)]="editUser.name"class="form-control" require />
+                                                            <i class="la la-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">                                                        
+                                                        <div class="sn-field">
+                                                            <p>Surname</p>
+                                                            <input type="text" name="surname" placeholder="{{editUser.surname}}" #name="ngModel" [(ngModel)]="editUser.surname"class="form-control" require />
+                                                            <i class="la la-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <p>Nick</p>
+                                                            <input type="text" name="nick" placeholder="{{editUser.nick}}" #name="ngModel" [(ngModel)]="editUser.nick" class="form-control" require />
+                                                            <i class="la la-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <p>Email</p>
+                                                            <input type="text" name="email" placeholder="{{editUser.email}}" #name="ngModel" [(ngModel)]="editUser.email" class="form-control" require pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                                            <i class="la la-globe"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <p>Password</p>
+                                                            <input type="password" name="password" placeholder="{{identity.password}}" #name="ngModel" [(ngModel)]="editUser.password" class="form-control" require />
+                                                            <i class="la la-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <p>Image</p>
+                                                            <input type="file" name="image" placeholder="Upload Image" (change)="fileChangeEvent($event)" class="form-control" />
+                                                            <i class="la la-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <button class="submit-button" type="submit" value="submit">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

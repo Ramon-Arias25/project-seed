@@ -131,7 +131,14 @@ p {
 	color: #666666;
 }
 
-
+header div div {
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
+}
+header div div div.user-account div.user-account-settingss.active{
+	display:block;
+}
 /* ================ CROSS BROWSER COMPATABILITY =============== */
 
 .ask-question,
@@ -271,11 +278,13 @@ header {
 	float: left;
 	width: 100%;
 }
+.header-data .logo img{
+	width: 45px;
+}
 .logo {
 	float: left;
 	width: 40px;
-	margin-right: 14px;
-	margin-top: 10px;
+	margin: 14px 10px 14px 10px;
 }
 .logo.pd-btm {
 	padding-bottom: 10px;
@@ -322,7 +331,6 @@ header {
 	font-size: 28px;
 	font-weight: 500;
 }
-
 /* ========== login_register ========== */
 
 .login_register {
@@ -2168,7 +2176,7 @@ select {
 .sn-field {
 	float: left;
 	width: 100%;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	position: relative;
 }
 .sn-field.pd-more {
@@ -2177,10 +2185,16 @@ select {
 .sn-field.pd-more input {
 	padding-left: 40px;
 }
+.sn-field > p{
+	font-size: 14px;
+    color: #666666;
+	text-align: left;
+}
 .sn-field > i {
 	position: absolute;
 	top: 50%;
 	left: 15px;
+	margin-top: 14px;
 	color: #b2b2b2;
 	font-size: 16px;
 	-webkit-transform: translateY(-50%);
@@ -2556,7 +2570,7 @@ footer {
 	width: 100%;
 	text-align: center;
 	margin-bottom: 28px;
-	margin-top: -95px;
+	margin-top: 28px;
 	position: relative;
 }
 .user-pro-img > a {
@@ -2618,7 +2632,9 @@ footer {
 .hre {
 	background-color: #51a5fb;
 }
-
+.mmsg{
+	background-color: #e44d3a;;
+}
 
 /* =============== flw-status ============ */
 
@@ -2715,7 +2731,7 @@ footer {
 .star-descp {
 	float: left;
 	width: 100%;
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 }
 .star-descp > a {
 	float: left;
@@ -2733,7 +2749,6 @@ footer {
 	color: #686868;
 	font-size: 18px;
 	font-weight: 600;
-	margin-right: 20px;
 }
 .star-descp > ul {
 	float: left;
@@ -2785,7 +2800,9 @@ footer {
 .tab-feed ul li:last-child {
 	margin-right: 0;
 }
-
+.user-tab-sec  div  form  div  div input{
+	text-indent: 20px;
+}
 
 /* ================ message-btn ============= */
 
@@ -3447,6 +3464,9 @@ a:hover {
 }
 .no-pdd {
 	padding: 0;
+}
+.auto-mrgn{
+	margin:auto;
 }
 .inpt-field.pd-moree input {padding-left: 40px !important;}
 .inpt-field i {

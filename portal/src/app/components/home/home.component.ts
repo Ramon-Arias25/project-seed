@@ -8,7 +8,7 @@ export class HomeComponent implements OnInit{
     public title:string;
 
     constructor(){
-        this.title = "Welcome to Pooled Demo"
+        this.title = "Home del proyecto Rescatados";
     }
 
     ngOnInit(){

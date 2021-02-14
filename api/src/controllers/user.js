@@ -2,8 +2,8 @@ var User = require('../models/user');
 var Follow = require('../models/follow');
 var Publication = require ('../models/publication');
 var jwt = require('../services/jwt');
-var getFollowIds = require('../services/getFollowIds');
-var fs = require('fs');
+var {getFollowIds} = require('../services/getFollowIds');
+var fs = require('fs'); 
 var path = require('path');
 var Paginate = require('../services/pagination');
 var bcrypt = require('bcrypt');
@@ -74,9 +74,10 @@ async function getUser(req, res) {
         if (err) return res.status(500).send({ message: ' Error en la peticion' });
 
         if (!user) return res.status(404).send({ message: 'El usuario no existe' });
-
+        
         getFollowIds(req.params.id)
             .then((value) => {
+                
                 user.password = undefined;
                 return res.status(200).send({
                     user,
@@ -116,12 +117,18 @@ function updateUser(req, res) {
     }
 
     User.find({
-        $or: [{ email: update.email }, { nick: update.nick }]
+        $or: [{ email: update.email.toLowerCase() }, { nick: update.nick.toLowerCase() }]
     }).exec((err, users) => {
-
+        var userIsset = false;
         users.forEach((user) => {
-            if (user && user._id != userId) return res.status(200).send({ message: 'los datos ya estan en uso' });
+            if(user && user._id != userId) {
+                userIsset = true;
+            }
         });
+
+        if (userIsset){
+            return res.status(500).send({ message: 'los datos ya estan en uso' });
+        }
 
         /*findByIdAndUpdate will be deprecated function 
         is recommended replaced with useFindAndModify 
@@ -138,30 +145,25 @@ function updateUser(req, res) {
 }
 
 function uploadImage(req, res) {
+    console.log(req.params);
     if (req.params.id = req.user.sub) {
         if (req.files.image) {
             if (((req.files.image.path.split('/')[2]).split('\.')[1]) == 'png'
                 || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpg'
                 || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpeg'
                 || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'gif') {
-
                 User.findByIdAndUpdate(req.params.id, { image: (req.files.image.path.split('/')[2]) }, { new: true }, (err, userUpdated) => {
-
                     if (err) {
                         fs.unlink(req.files.image.path, (err) => {
                             return res.status(500).send({ message: 'Error al actualizar el usuario' });
                         });
                     }
-
-
                     if (!userUpdated) {
                         fs.unlink(req.files.image.path, (err) => {
                             return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
                         });
                     }
-
                     return res.status(200).send({ user: userUpdated });
-
                 });
             } else {
                 fs.unlink(req.files.image.path, (err) => {
@@ -172,7 +174,6 @@ function uploadImage(req, res) {
             return res.status(200).send({ message: 'No existe imagen adjunta' });
         }
     } else {
-
         fs.unlink(req.files.image.path, (err) => {
             return res.status(500).send({ message: 'no tiene permiso para actualizar los datos del usuario' });
         });

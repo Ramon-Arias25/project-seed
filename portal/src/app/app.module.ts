@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent} from './components/register/register.component';
 import { HomeComponent} from './components/home/home.component';
+import { EditProfileComponent} from './components/edit-profile/profile-edit.component'
 //services
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
@@ -16,7 +17,8 @@ import { UserGuard } from './services/user.guard';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

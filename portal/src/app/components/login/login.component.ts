@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit{
             },
             error => {
                 var errorMessage = <any>error;
-                //console.log(errorMessage);
                 if(errorMessage != null){
                     this.loginStatus = 'error';
                 }
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit{
                 }else{
                     localStorage.setItem('token',JSON.stringify(this.token));
                     this.getCounters();
-                    //this.myRouter.navigate(['/home']);
                 }
             },
             error =>{
