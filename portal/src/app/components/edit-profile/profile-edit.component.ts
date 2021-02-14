@@ -13,7 +13,7 @@ import { UploadService} from '../../services/upload.service';
 export class EditProfileComponent implements OnInit{
     public title:string;
     public editUser: User;
-    public identity;
+    public identity: User;
     public token;
     public status: string;
     public url: string;
@@ -51,7 +51,7 @@ export class EditProfileComponent implements OnInit{
                                                 .then((result:any) => {
                                                     console.log(result);
                                                     this.editUser.image = result.user.image;
-                                                    localStorage.setItem ( 'identity', JSON.stringify(this.editUser));
+                                                    localStorage.setItem ('identity', JSON.stringify(this.editUser));
                                                 });
               }
 
@@ -69,6 +69,5 @@ export class EditProfileComponent implements OnInit{
     public fileToUpload: Array<File>;
     fileChangeEvent(fileInput: any){
         this.fileToUpload = <Array<File>>fileInput.target.files;
-        console.log(this.fileToUpload);
     }
 }

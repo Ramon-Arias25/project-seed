@@ -145,14 +145,14 @@ function updateUser(req, res) {
 }
 
 function uploadImage(req, res) {
-    console.log(req.params);
+    
     if (req.params.id = req.user.sub) {
         if (req.files.image) {
-            if (((req.files.image.path.split('/')[2]).split('\.')[1]) == 'png'
-                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpg'
-                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'jpeg'
-                || ((req.files.image.path.split('/')[2]).split('\.')[1]) == 'gif') {
-                User.findByIdAndUpdate(req.params.id, { image: (req.files.image.path.split('/')[2]) }, { new: true }, (err, userUpdated) => {
+            if ((req.files.image.path.split('/').reverse()[0].split('\.')[1].toLowerCase()) == 'png'  || 
+                (req.files.image.path.split('/').reverse()[0].split('\.')[1].toLowerCase()) == 'jpg'  || 
+                (req.files.image.path.split('/').reverse()[0].split('\.')[1].toLowerCase()) == 'jpeg' || 
+                (req.files.image.path.split('/').reverse()[0].split('\.')[1].toLowerCase()) == 'gif') {
+                User.findByIdAndUpdate(req.params.id, { image: (req.files.image.path.split('/').reverse()[0]) }, { new: true }, (err, userUpdated) => {
                     if (err) {
                         fs.unlink(req.files.image.path, (err) => {
                             return res.status(500).send({ message: 'Error al actualizar el usuario' });
@@ -181,9 +181,9 @@ function uploadImage(req, res) {
 }
 
 function getImageFile(req, res) {
-
-    if (fs.existsSync('./uploads/users/' + req.params.imageFile)) {
-        res.sendFile(path.resolve('./uploads/users/' + req.params.imageFile));
+    
+    if (fs.existsSync(process.cwd() + '/src/uploads/users/' + req.params.imageFile)) {
+        res.sendFile(path.resolve(process.cwd() + '/src/uploads/users/' + req.params.imageFile));
     } else {
         res.status(200).send({ message: 'No existe la imagen' });
     }

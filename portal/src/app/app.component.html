@@ -167,7 +167,7 @@
       </div>
       <div class="user-account" *ngIf="identity">
         <div class="user-info">
-          <img src="{{url + '/user/get-image/' + identity.image }}" class="img-avatar" alt={{identity.name}} *ngIf="identity && identity.image" />
+          <img src="{{url + 'user/get-image/' + identity.image }}" class="img-avatar" alt={{identity.name}} *ngIf="identity && identity.image" />
           <a>{{identity.name}} </a>
           <i class="la la-sort-down"></i>
         </div>
