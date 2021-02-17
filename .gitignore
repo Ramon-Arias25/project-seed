@@ -4,6 +4,7 @@ front/node_modules/*
 front/.pnp
 docs/*
 bk.front/*
+api/.env
 
 # compiled output
 portal/dist
